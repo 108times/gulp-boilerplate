@@ -1,0 +1,36 @@
+@use 'fonts';
+
+body {
+  font-family: JetBrainsMonoNL;
+    background-color: rgb(63, 63, 63);
+    h1 {
+        color: #d0d0d0
+    }
+    p {
+        color: #fff
+    }
+    .logo {
+        background: url(@img/cover.jpg);
+    }
+}
+
+
+@media (max-width: 768px) {
+  span {
+    font-size: 20px;
+  }
+
+  body {
+    background: #678984;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 28px;
+  }
+
+
+}

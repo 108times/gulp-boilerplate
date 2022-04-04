@@ -15,14 +15,24 @@ global.app = {
 };
 
 // Импорт задач
-import { assets, clean, html, server } from './gulp/tasks/index.js';
+import { files, clean, html, server, scss, js, images } from './gulp/tasks/index.js';
+import { otfToTtf, ttfToWoff, fontsStyles } from './gulp/tasks/fonts.js';
 
 // Наблюдатель за изменениями в файлах
 const watcher = () => {
-  gulp.watch(path.watch.assets, assets);
+  gulp.watch(path.watch.files, files);
   gulp.watch(path.watch.html, html);
+  gulp.watch(path.watch.scss, scss);
+  gulp.watch(path.watch.js, js);
+  gulp.watch(path.watch.images, images);
 };
-const mainTasks = gulp.parallel(assets, html);
+
+// Последовательная обработка шрифтов
+const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyles);
+gulp.task('fonts', fonts);
+
+// Основные задачи
+const mainTasks = gulp.series(fontsStyles, gulp.parallel(files, html, scss, js, images));
 
 // Построение сценариев выполнения задач
 const dev = gulp.series(clean, mainTasks, gulp.parallel(watcher, server));

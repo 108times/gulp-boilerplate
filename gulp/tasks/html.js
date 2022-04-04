@@ -40,6 +40,6 @@ export const html = () => {
           },
         }),
       )
-      .pipe(app.gulp.dest(app.path.dest.html))
+      .pipe(app.gulp.dest(app.path.build.html))
   );
 };

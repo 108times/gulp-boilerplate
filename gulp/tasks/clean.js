@@ -1,4 +1,4 @@
 import del from 'del';
 export const clean = () => {
-  return del(app.path.dest.assets);
+  return del(app.path.build.files);
 };

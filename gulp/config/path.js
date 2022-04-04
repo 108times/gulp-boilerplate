@@ -6,20 +6,32 @@ const srcFolder = './src';
 const buildFolder = './dist';
 
 export const path = {
-  dest: {
-    assets: `${buildFolder}/assets/`,
+  build: {
+    js: `${buildFolder}/js/`,
+    files: `${buildFolder}/files/`,
     html: `${buildFolder}/`,
+    css: `${buildFolder}/css`,
+    images: `${buildFolder}/images`,
+    fonts: `${buildFolder}/fonts`,
   },
   src: {
-    assets: `${srcFolder}/assets/**/*.*`,
+    js: `${srcFolder}/js/app.js`,
+    files: `${srcFolder}/files/**/*.*`,
     html: `${srcFolder}/*.pug`,
+    scss: `${srcFolder}/scss/style.scss`,
+    images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
+    svg: `${srcFolder}/svg/**/*.svg`,
   },
   watch: {
-    assets: `${srcFolder}/assets/**/*.*`,
-    html: `${srcFolder}/**/*.pug`,
+    js: `${srcFolder}/js/**/*.js`,
+    files: `${srcFolder}/files/**/*.*`,
+    html: `${srcFolder}/**/*.{pug, html}`,
+    scss: `${srcFolder}/scss/**/*.scss`,
+    images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp, svg, ico}`,
   },
   clean: buildFolder,
   srcFolder: srcFolder,
   rootFolder: rootFolder,
+  version: nodePath.resolve('gulp/version.json'),
   ftp: ``,
 };
