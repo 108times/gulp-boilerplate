@@ -11,7 +11,7 @@ export const path = {
     files: `${buildFolder}/files/`,
     html: `${buildFolder}/`,
     css: `${buildFolder}/css`,
-    images: `${buildFolder}/images`,
+    images: `${buildFolder}/img`,
     fonts: `${buildFolder}/fonts`,
   },
   src: {
@@ -21,6 +21,7 @@ export const path = {
     scss: `${srcFolder}/scss/style.scss`,
     images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
     svg: `${srcFolder}/svg/**/*.svg`,
+    svgIcons: `${srcFolder}/svgicons/*.svg`,
   },
   watch: {
     js: `${srcFolder}/js/**/*.js`,
@@ -31,7 +32,7 @@ export const path = {
   },
   clean: buildFolder,
   srcFolder: srcFolder,
+  buildFolder: buildFolder,
   rootFolder: rootFolder,
-  version: nodePath.resolve('gulp/version.json'),
-  ftp: ``,
+  ftp: `test`,
 };

@@ -3,7 +3,8 @@ import plumber from 'gulp-plumber';
 import notify from 'gulp-notify';
 import browserSync from 'browser-sync';
 import newer from 'gulp-newer';
-import fs from 'fs';
+import gulpIf from 'gulp-if';
+import lazypipe from 'lazypipe';
 
 export const plugins = {
   replace,
@@ -11,5 +12,6 @@ export const plugins = {
   browserSync,
   plumber,
   newer,
-  getVersion: () => JSON.parse(fs.readFileSync(app.path.version)).main,
+  if: gulpIf,
+  lazypipe,
 };

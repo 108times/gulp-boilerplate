@@ -1,6 +1,5 @@
 // Основной модуль
 import gulp from 'gulp';
-
 // Импорт путей
 import { path } from './gulp/config/path.js';
 
@@ -9,14 +8,28 @@ import { plugins } from './gulp/config/plugins.js';
 
 // Передача часто используемых данных в глобальную переменную
 global.app = {
+  development: !process.argv.includes('--build'),
   path,
   gulp,
   plugins,
 };
 
 // Импорт задач
-import { files, clean, html, server, scss, js, images } from './gulp/tasks/index.js';
-import { otfToTtf, ttfToWoff, fontsStyles } from './gulp/tasks/fonts.js';
+import {
+  files,
+  clean,
+  html,
+  server,
+  scss,
+  js,
+  images,
+  svgSprite,
+  zip,
+  ftp,
+} from './gulp/tasks/index.js';
+
+// export for npm task
+export { svgSprite };
 
 // Наблюдатель за изменениями в файлах
 const watcher = () => {
@@ -28,14 +41,25 @@ const watcher = () => {
 };
 
 // Последовательная обработка шрифтов
-const fonts = gulp.series(otfToTtf, ttfToWoff, fontsStyles);
-gulp.task('fonts', fonts);
+import { otfToTtf, ttfToWoff, fontsStyles } from './gulp/tasks/fonts.js';
+
+const fonts = plugins.if(!app.development, gulp.series(otfToTtf, ttfToWoff, fontsStyles));
+
+export { fonts };
 
 // Основные задачи
-const mainTasks = gulp.series(fontsStyles, gulp.parallel(files, html, scss, js, images));
+const mainTasks = gulp.series(fontsStyles, gulp.parallel(files, html, scss, js, images, fonts));
 
 // Построение сценариев выполнения задач
 const dev = gulp.series(clean, mainTasks, gulp.parallel(watcher, server));
+const build = gulp.series(clean, mainTasks);
+const deployZIP = gulp.series(clean, mainTasks, zip);
+const deployFTP = gulp.series(clean, mainTasks, ftp);
+// export for npm task
+export { dev };
+export { build };
+export { deployZIP };
+export { deployFTP };
 
 // Сценарий по умолчанию
 gulp.task('default', dev);

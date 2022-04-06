@@ -26,20 +26,24 @@ export const html = () => {
       )
       // .pipe(fileInclude()) // for html
       .pipe(app.plugins.replace(/@img\//g, 'img/'))
-      .pipe(webpHtmlNoSvg())
+      .pipe(app.plugins.if(app.development, webpHtmlNoSvg()))
       .pipe(
-        versionNumber({
-          value: '%DT%',
-          append: {
-            key: '_v',
-            cover: 0,
-            to: ['css', 'js'],
-          },
-          output: {
-            file: 'gulp/version.json',
-          },
-        }),
+        app.plugins.if(
+          app.development,
+          versionNumber({
+            value: '%DT%',
+            append: {
+              key: '_v',
+              cover: 0,
+              to: ['css', 'js'],
+            },
+            output: {
+              file: 'gulp/version.json',
+            },
+          }),
+        ),
       )
+
       .pipe(app.gulp.dest(app.path.build.html))
   );
 };
